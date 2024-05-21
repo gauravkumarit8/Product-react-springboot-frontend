@@ -8,11 +8,10 @@ export default function CreateProduct() {
   const [price, setPrice] = useState('');
   const [quantity, setQuantity] = useState('');
 
-  // Correctly declare the submit function using const
+
   const submit = async (e) => {
     e.preventDefault();
     try {
-      // Assuming you want to use the Fetch API for a POST request
       const response = await fetch(URL, {
         method: 'POST', // Specify the method
         headers: {
@@ -29,7 +28,6 @@ export default function CreateProduct() {
       setPrice('');
       setQuantity('');
       console.log(data);
-      // You might want to do something upon successful post, like updating UI or state
     } catch (error) {
       console.log(error);
     }
@@ -37,7 +35,9 @@ export default function CreateProduct() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(URL);
+      const response = await fetch(URL,{
+
+      });
       const data = await response.json();
       console.log(data);
       setProduct(data);
@@ -57,7 +57,8 @@ export default function CreateProduct() {
         <ul>
           {product.map((list, index) => (
             <li key={index} onClick={() => handleEdit(product)}>
-                {list.id} | {list.title} | {list.price} | {list.quantity}
+                <a href={`${URL}/${list.id}`}>{list.title}</a> | {list.price} | {list.quantity} | 
+                <button type="submit" onClick={handleEdit} >Edit</button>
             </li>
           ))}
         </ul>
